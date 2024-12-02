@@ -209,37 +209,47 @@ void listPrint(const List *L) {
     puts("");
 }
 
-void listRemove(List *L, Contacts *contact) {
+void listRemove(List *L, int index) {
 
-    if (!listIsEmpty(L)) {
-        Node *p = L -> begin;
-
-        if (L -> begin -> contact == contact) {
-            L -> begin = p -> next;
-
-            if(p == L -> begin) L -> end = NULL;
-            else L -> begin -> prev = NULL;
-
-            destroyContact(p -> contact);
-            free(p);
-            L -> size--;
-        }
-        else {
-            p = p -> next;
-            while (p != NULL) {
-                if (p -> contact == contact) {
-                    p -> prev -> next = p -> next;
-                    if (L -> end == p) L -> end = p -> prev;
-                    else p -> next -> prev = p -> prev;
-
-                    destroyContact(p -> contact);
-                    free(p);
-                    p = NULL;
-                    L -> size--;
-                } else p = p -> next;
-            }
-        }
+    if (listIsEmpty(L)) {
+        fprintf(stderr, "ERRO no método 'listRemove'\n");
+        fprintf(stderr, "Lista está vazia\n");
     }
+
+    if (index < 0 || index >= L->size) {
+        fprintf(stderr, "ERRO no método 'listRemove'\n");
+        fprintf(stderr, "Index '%d' inválido\n", index);
+        fprintf(stderr, "Tente um índex entre [0, %d]\n", L -> size - 1);
+    }
+
+    Node *current = L->begin;
+    int i = 0;
+
+    // Localizar o nó na posição fornecida
+    while (i < index) {
+        current = current->next;
+        i++;
+    }
+
+    // Atualizar os ponteiros para remover o nó
+    if (current->prev) {
+        current->prev->next = current->next;
+    } else {
+        L->begin = current->next; // Atualizar o início da lista se for o primeiro nó
+    }
+
+    if (current->next) {
+        current->next->prev = current->prev;
+    } else {
+        L->end = current->prev; // Atualizar o final da lista se for o último nó
+    }
+
+    // Liberar memória do nó removido
+    destroyContact(current->contact);
+    free(current);
+
+    L->size--;
+    printf("Elemento removido com sucesso.\n");
 }
  
 size_t listSize(List *L) {

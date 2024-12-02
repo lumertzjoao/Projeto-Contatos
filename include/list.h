@@ -18,7 +18,7 @@ int listPos(List *L, char *cpf);
 void listInsert(List *L, Contacts *contact);
 void listGet(List *L, int index);
 void listPrint(const List *L);
-void listRemove(List *L, Contacts *contact);
+void listRemove(List *L, int index);
 
 size_t listSize(List *L);
 

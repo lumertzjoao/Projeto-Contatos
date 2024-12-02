@@ -9,8 +9,10 @@ void limparBuffer();
 void exibirElemento(List *L);
 void trocarTela(List *L, int o);
 void exibirMenu();
+void removerContato(List *L);
 void run(List *L);
 void adicioarContato(List *L);
+void exibirTudo(List *L);
 
 int option = 0;
 
@@ -34,6 +36,15 @@ void trocarTela(List *L, int o) {
         break;
     case 2:
         adicioarContato(L);
+        break;
+    case 3:
+        removerContato(L);
+        break;
+    case 4:
+        exibirTudo(L);
+        break;
+    case 5:
+        exit(EXIT_SUCCESS);
         break;
     default:
         exibirMenu();
@@ -67,6 +78,25 @@ void exibirElemento(List *L) {
         scanf("%d", &i);
         listGet(L, i);
     }
+}
+
+void removerContato(List *L) {
+    if (listIsEmpty(L)) {
+        puts("Lista está vazia\n");
+        return;
+    } else {
+        int i = 0;
+        printf("Informe o índice do contato que deseja remover: ");
+        scanf("%d", &i);
+        listRemove(L, i);
+    }
+}
+
+void exibirTudo(List *L) {
+    if (listIsEmpty(L)) {
+        puts("Lista está vazia\n");
+        return;
+    } else listTable(L);
 }
 
 void adicioarContato(List *L) {
