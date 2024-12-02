@@ -1,0 +1,36 @@
+# Compilador e arquivos temporários
+*.o
+*.obj
+*.lo
+*.la
+*.so
+*.dll
+*.dylib
+*.exe
+*.out
+*.a
+*.lib
+
+# Diretórios de build
+/build/
+/bin/
+/Debug/
+/Release/
+/dist/
+/lib/
+/obj/
+/arq/
+
+# Arquivos de log
+*.log
+
+# Visual Studio
+.vscode/
+*.user
+*.vcxproj*
+*.sln
+
+# GCC/Clang Makefiles
+Makefile
+CMakeFiles/
+CMakeCache.txt
